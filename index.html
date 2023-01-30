@@ -88,23 +88,23 @@
       document
         .querySelector("#resetBtn")
         .addEventListener("click", resetStopwatch);
-
+      // start timer implementation
       function startStopwatch() {
         startTime = Date.now() - elapsedTime;
         interval = setInterval(updateTimer, 10);
       }
-
+      // pause timer implementation
       function pauseStopwatch() {
         clearInterval(interval);
         elapsedTime = Date.now() - startTime;
       }
-
+      // reset timer
       function resetStopwatch() {
         clearInterval(interval);
         elapsedTime = 0;
         timerDisplay.innerHTML = "0.00";
       }
-
+      // update the timer
       function updateTimer() {
         let elapsedTime = (Date.now() - startTime) / 1000;
         timerDisplay.innerHTML = elapsedTime.toFixed(2);
