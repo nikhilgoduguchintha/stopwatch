@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <style>
+      :root {
+        --yellow: #ffff00;
+        --green: #008000;
+        --red: #ff0000;
+      }
+      body {
+        background: linear-gradient(to bottom, #e6e9f0 0%, #eef1f5 100%);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      h2 {
+        text-align: center;
+      }
+      #timer {
+        font-size: 2em;
+        text-align: center;
+        margin: 30px;
+        animation: timer-fadein 2s;
+      }
+      @keyframes timer-fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      button {
+        width: 120px;
+        height: 40px;
+        margin: 20px;
+        border-radius: 5px;
+        border: none;
+        font-size: 1em;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+      button:active {
+        transform: scale(0.75);
+      }
+      #startBtn {
+        background-color: var(--green);
+        color: white;
+      }
+      #pauseBtn {
+        background-color: var(--yellow);
+        color: black;
+      }
+      #resetBtn {
+        background-color: var(--red);
+        color: white;
+      }
+      .btn-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Vanilla JavaScript Stopwatch</h2>
+    <p id="timer">0.00</p>
+    <div class="btn-wrapper">
+      <button id="startBtn">Start</button>
+      <button id="pauseBtn">Pause</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+
+    <script>
+      const timerDisplay = document.querySelector("#timer");
+      let startTime,
+        interval,
+        elapsedTime = 0;
+
+      document
+        .querySelector("#startBtn")
+        .addEventListener("click", startStopwatch);
+      document
+        .querySelector("#pauseBtn")
+        .addEventListener("click", pauseStopwatch);
+      document
+        .querySelector("#resetBtn")
+        .addEventListener("click", resetStopwatch);
+
+      function startStopwatch() {
+        startTime = Date.now() - elapsedTime;
+        interval = setInterval(updateTimer, 10);
+      }
+
+      function pauseStopwatch() {
+        clearInterval(interval);
+        elapsedTime = Date.now() - startTime;
+      }
+
+      function resetStopwatch() {
+        clearInterval(interval);
+        elapsedTime = 0;
+        timerDisplay.innerHTML = "0.00";
+      }
+
+      function updateTimer() {
+        let elapsedTime = (Date.now() - startTime) / 1000;
+        timerDisplay.innerHTML = elapsedTime.toFixed(2);
+      }
+    </script>
+  </body>
+</html>
